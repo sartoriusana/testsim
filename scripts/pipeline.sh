@@ -19,12 +19,23 @@ for sampleid in $(ls data/*.fastq.gz | cut -d"_" -f1 | cut -d"/" -f2 | sort | un
 
 	do 
 
-#call analyse_sample for each sampleid
+#Call analyse_sample for each sampleid
+
 	#First, execute QC analysis.
+
 echo "Running FastQC..."
     mkdir -p out/fastqc
     fastqc -o out/fastqc data/${sampleid}*.fastq.gz
     echo
 
-# 
+	#Cut the adapters.
+
+echo "Running cutadapt..."
+    mkdir -p log/cutadapt
+    mkdir -p out/cutadapt
+    cutadapt -m 20 -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCA -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT -o out/cutadapt/${sampleid}_1.trimmed.fastq.gz -p out/cutadapt/${sampleid}_2.trimmed.fastq.gz data/${sampleid}_1.fastq.gz data/${sampleid}_2.fastq.gz > log/cutadapt/${sampleid}.log
+
+    echo
+
+#
 done
