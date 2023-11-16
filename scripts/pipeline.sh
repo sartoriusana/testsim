@@ -15,9 +15,16 @@ echo "Running STAR index..."
 
 
 
-for $sampleid in $(ls data/*.fastqc.gz | cut -d"_" -f1 | cut -d"/" -f2 | sort | uniq)
+for sampleid in $(ls data/*.fastq.gz | cut -d"_" -f1 | cut -d"/" -f2 | sort | uniq)
 
 	do 
 
-	#call analyse_sample for each sampleid
+#call analyse_sample for each sampleid
+	#First, execute QC analysis.
+echo "Running FastQC..."
+    mkdir -p out/fastqc
+    fastqc -o out/fastqc data/${sampleid}*.fastq.gz
+    echo
+
+# 
 done
