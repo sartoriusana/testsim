@@ -15,8 +15,9 @@ echo "Running STAR index..."
 
 
 
-for $sampleid in $(get sample ids)
-do
+for $sampleid in $(ls data/*.fastqc.gz | cut -d"_" -f1 | cut -d"/" -f2 | sort | uniq)
+
+	do 
 
 	#call analyse_sample for each sampleid
 done
