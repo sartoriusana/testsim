@@ -37,5 +37,11 @@ echo "Running cutadapt..."
 
     echo
 
-#
+#Align the genome with the reference.
+
+echo "Running STAR alignment..."
+    mkdir -p out/star/${sampleid}
+    STAR --runThreadN 4 --genomeDir res/genome/star_index/ --readFilesIn out/cutadapt/${sampleid}_1.trimmed.fastq.gz out/cutadapt/${sampleid}_2.trimmed.fastq.gz --readFilesCommand zcat --outFileNamePrefix out/star/${sampleid}/
+    echo
+
 done
